@@ -2,8 +2,6 @@
  *********************************************
  *  314 Principles of Programming Languages  *
  *  Spring 2013                              *
- *  Authors: Ulrich Kremer                   *
- *           Hans Christian Woithe           *
  *********************************************
  */
 
