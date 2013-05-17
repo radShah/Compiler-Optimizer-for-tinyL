@@ -15,15 +15,17 @@ int main()
 {
 	Instruction *head;
 	Instruction *instr1, *instr2, *instr3;
-	int opt_flag;
-	opt_flag = 0;
+	int opt_flag = 0;
 
 	head = ReadInstructionList(stdin);
+
+	// Exits if the instruction list is empty
 	if (!head) {
 		ERROR("No instructions\n");
 		exit(EXIT_FAILURE);
 	}
-
+	
+	// Began examining the first 3 instructions
     	instr1 = head;
 	instr2 = instr1->next;
 	instr3 = instr2->next;
@@ -47,10 +49,7 @@ int main()
 	     }
 	    else if (instr3->opcode == 4) {
 		z = x-y;
-		//printf("%d,%d,%d\n", x, y, z);
-		instr1->field2 = z;
-		//printf("%d,%d,%d\n",instr1->opcode, instr1->field1, instr1->field2);
-		
+		instr1->field2 = z;		
 	     }
 	    else if (instr3->opcode == 5) {
 		z = x*y;
@@ -62,6 +61,7 @@ int main()
 	      }
   	  }	
 	
+	// If no opportunity for optimization, then proceed to the next 3 intstructions, else optimize.
 	if (opt_flag == 0) {
 	  instr1 = instr1->next;
 	  instr2 = instr2->next;
