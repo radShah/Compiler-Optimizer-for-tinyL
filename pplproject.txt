@@ -1,0 +1,65 @@
+Project #1 for Principles of Programming Languages:
+A Compiler and Optimizer for tinyL
+
+
+
+RISC = Reduced instructon set computing: CPU design in which simplifed instructions enable faster execution per instruction, leading to higher performance.
+	Uses a small, highly-optimized set of instructions. Also use load/store architecture, where memory only accessed through specific instructions.
+
+Target architecture: simple RISC machine with virtual registers, meaning an unbounded number of registers. All registers can only store integer values.
+			Uses load/store architecture where arithmetic instructions operate on registers rather than memory addresses. Thus, for each 						access to a memory location, a load or store instruction has to be generated.
+			The three registers: Rx , Ry , and Rz represent three arbitrary, but distinct registers.
+			Machine instruction set for our RISC target architecture is provided.
+
+
+Peephole Optimizer for Constant Propagation
+	The peephole optimizer uses a sliding window made up of 3 RISC machine instruction. It looks for this form:
+		LOADI Rx #c1
+		LOADI Ry #c2
+		op Rz Rx Ry
+	If the form is detecuted, c1 op c2 is computed = c3. op can be add, sub, mu. Original 3 instructions replaced by single instruction:
+		LOADI Rz #c3
+	If the peephole doesn't find the form, window moves one instruction down. In successful match and replacement, first instruction of new window is 			instruction after original 3.
+	The peephole optimizer expects input file to be provided at the standard input (stdin); writes the generated code back to standard output (stdout). 	Instructions that are deleted as part of the optimization process have to be explicitly deallocated using the C free command in order to avoid memory leaks. 		Implement constant propagation optimization pass in file Optimizer.c.
+
+Compiler
+	Recursive descent LL(1) parser implements a simple code generator. 
+	Follow main structure of code given to you in file Compiler.c. It contains code for function digit and partial code for function expr. As is, compiler is able 		to generate code only for expressions that contain \+" operations and constants.
+	Need to add code to the provided stubs to generate correct RISC machine code for the entire program. Do not change the signatures of the recursive functions. 
+
+I/O Instruction Utility
+	A sequence of machine instructions is represented as a doubly-linked list.
+	Need to implement the following utility function : void PrintInstructionList(FILE *outfile, Instruction *instr); in file InstrUtils.c. It traverses the 		instruction list beginning with instruction "instr". The list is written into file "outfile". 
+	Implementation of thatfunction has to be based on the utility function void PrintInstruction(FILE *outfile, Instruction *instr); Implementation of the latter 		function is provided in file InstrUtils.c. File will also contain your implementation of PrintInstructionList
+
+Virtual Machine
+	The virtual machine executes a RISC machine program. 
+	If READ <id> instruction executed, user asked for the value of <id> from standard input (stdin). 
+	If WRITE<id> instruction executed, current value of <id> written to standard output (stdout). 
+	The virtual machine implemented in file Interpreter.c. DO NOT MODIFY this file. There only for your convenience so that you may be able to copy the source
+	code of the virtual machine, for instance, to your laptop and compile it there. Note that this is for your convenience only since the project will be graded 		on the ilab cluster.
+	The virtual machine assumes that arbitrary number of registers are available (called virtual registers), and that there are only five memory locations that can 	be accessed using variable names ('a' ... 'e'). In a real compiler, an additional optimization pass maps virtual registers to the limited number of physical 		registers of a machine. This step is typically called register allocation. The virtual machine (RISC machine language interpreter) will report the
+	overall number of executed instructions for a given input program. This allows you to assess the effectiveness of your peephole constant propagation 			optimization. You also will be able to check for correctness of your optimization pass.
+
+
+3 PARTS to THE PROJECT
+1. Write a recursive descent LL(1) parser that generates RISC machine instructions.
+2. Write a utility function to write out a list of RISC machine instructions.
+3. Write a peephole optimizer for constant propagation using a window of exactly three RISC machine instructions.
+Entire programming environment = compiler, optimizer, and virtual machine (RISC machine interpretor).
+
+
+Grading
+	Submit 3 files: InstrUtils.c, Optimizer.c, and Compiler.c.
+	Grade based mainly on functionality.
+	No error handing is required.
+	The original project distribution contains some test cases. Note that during grading we will use additional test cases not known to you in advance.
+	The distribution also contains executables of reference solutions for the compiler (compile.sol) and optimizer (optimize.sol).
+	A simple Makele is also provided in the distribution for your convenience.
+	In order to create the compiler, say make compile at the Linux prompt, which will generate the executable compile.
+	The Makefile also contains rules to create executables of your optimizer (make optimize) and virtual machine (make run)
+
+
+
+
+

@@ -2,8 +2,6 @@
  *********************************************
  *  314 Principles of Programming Languages  *
  *  Spring 2013                              *
- *  Authors: Ulrich Kremer                   *
- *           Hans Christian Woithe           *
  *********************************************
  */
 
@@ -62,17 +60,7 @@ int main()
 		ERROR("Unexpected instruction/n");
 		exit(EXIT_FAILURE);
 	      }
-  	  }
-	  /*  
-	printf("Before sliding window\n");
-	printf("%d,%d,%d\n", instr1->opcode, instr1->field1, instr1->field2);
-	printf("%d,%d,%d\n", instr2->opcode, instr2->field1, instr2->field2);
-	printf("%d,%d,%d,%d\n", instr3->opcode, instr3->field1, instr3->field2,
-	instr3->field3);
-	printf("Opt_flag is %d\n", opt_flag);
-	  */
-	  
-	
+  	  }	
 	
 	if (opt_flag == 0) {
 	  instr1 = instr1->next;
@@ -93,12 +81,6 @@ int main()
 	  
 	}
 	
-	/*
-	printf("After sliding window:\n");
-	printf("%d,%d,%d\n", instr1->opcode, instr1->field1, instr1->field2);
-	printf("%d,%d,%d\n", instr2->opcode, instr2->field1, instr2->field2);
-	printf("%d,%d,%d\n", instr3->opcode, instr3->field1, instr3->field2);
-	*/
     }
 		 
 	PrintInstructionList(stdout, head);
