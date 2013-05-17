@@ -1,7 +1,7 @@
 Compiler-and-Optimizer-for-tinyL
 ================================
 
-Description
+Description:
 Compiler.c: A recursive descent LL(1) parser that generates RISC machine instructions. 
 InstrUtils.c : A utility function that prints the list of RISC machine instructions. A sequence of machine instructions is represented by a doubly linked list. 
 Optimizer.c:  A peephole optimizer for constant propagation using a sliding window of three RISC machine instructions. It looks for a pattern of the following form:
